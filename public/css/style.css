@@ -2,6 +2,7 @@
     --main-bg-color: rgb(46, 51, 73);
     --sidenav-bg-color: rgb(24, 30, 54);
     --sidenav-width: 200px;
+    --nav-element-padding-left: 8px;
   }
 
 body {
@@ -44,15 +45,22 @@ body {
 
 /* The navigation menu links */
 .sidenav a {
+    position: relative;
     font-family: "Nirmala UI";
-    font-weight: "Regular";
-    text-align: center;
-    width: 100%;
-    padding: 6px 0;
+    font-weight: normal;
+    text-align: left;
+    width: calc(var(--sidenav-width) - var(--sidenav-element-padding--left));
+    padding: 6px 0 6px 8px;
     text-decoration: none;
     font-size: 25px;
     color: rgb(0, 171, 201);
     display: block;
+}
+
+.sidenav a i {
+    position: absolute;
+    right: 12px;
+    top: 10px;
 }
 
 .sidenav a:hover {

@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet" media="screen"/>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://kit.fontawesome.com/b247ef6678.js" crossorigin="anonymous"></script>
+{% endblock %}
+
+
+{% block body %}
+    <div class="sidenav">
+        <div class="logo">
+        <p>My app logo here</p>
+        </div>
+
+        <a href="{{ path('dashboard') }}">Dashboard <i class="fas fa-home"></i></a>
+        <a href="#">Calendar <i class="fas fa-calendar-alt"></i></a>
+        <a href="#">Passwords <i class="fas fa-lock"></i></a>
+        <a href="#">Help <i class="fas fa-question"></i></a>
+    </div>
+    <div class="main">
+        {% block main %}
+        {% endblock %}
+    </div>
+
+{% endblock %}

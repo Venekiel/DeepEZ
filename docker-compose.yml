@@ -1,8 +1,28 @@
 version: "3.8"
 services:
     nginx:
+        container_name: nginx
         image: kibatic/symfony:8.1
+        depends_on:
+            - mysql 
         volumes: 
             - .:/var/www
         ports: 
             - 8080:80
+    
+    mysql:
+        container_name: mysql
+        image: mysql:8.0.26
+        restart: always
+        ports:
+            - 3306:3306
+        volumes:
+            - mysql:/var/lib/mysql
+        environment:
+            # MYSQL_USER: user
+            # MYSQL_PASSWORD: password
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: database
+
+volumes:
+    mysql:

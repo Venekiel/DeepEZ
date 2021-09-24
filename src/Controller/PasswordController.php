@@ -8,11 +8,15 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PasswordController extends AbstractController
 {
-    #[Route('/password', name: 'password')]
+    const ACTIVE_NAV_ELEMENT = 'password';
+
+    /**
+     * @Route("/password", name="password")
+     */
     public function password(): Response
     {
         return $this->render('password/view.html.twig', [
-            'active_page' => 'password',
+            'active_nav_element' => $this::ACTIVE_NAV_ELEMENT,
         ]);
     }
 }

@@ -8,6 +8,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DashboardController extends AbstractController
 {
+    const ACTIVE_NAV_ELEMENT = 'dashboard';
+
     /**
      * @Route("/dashboard", name="dashboard")
      */
@@ -15,7 +17,7 @@ class DashboardController extends AbstractController
     {
         return $this->render("dashboard/view.html.twig", [
         // return $this->render("passwords/view.html.twig", [
-            'active_page' => 'dashboard',
+            'active_nav_element' => $this::ACTIVE_NAV_ELEMENT,
         ]);
     }
 }

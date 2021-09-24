@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {{ include('main/_sidenav.html.twig', {'active_page': active_page}) }}
+    {{ include('main/_sidenav.html.twig', {'active_element': active_nav_element}) }}
 
     <div class="content">
         {% block content %}

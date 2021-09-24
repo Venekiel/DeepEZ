@@ -9,10 +9,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class MainController extends AbstractController
 {
     /**
-     * @Route("/", name="dashboard")
+     * @Route("/", name="index")
      */
-    public function dashboard(): Response
+    public function index(): Response
     {
-        return $this->renderForm("main/sidenav.html.twig");
+        return $this->redirectToRoute("dashboard");
     }
 }

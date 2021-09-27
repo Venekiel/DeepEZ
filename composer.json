@@ -23,7 +23,11 @@
         "symfony/yaml": "5.3.*"
     },
     "require-dev": {
-        "symfony/maker-bundle": "^1.33"
+        "doctrine/doctrine-fixtures-bundle": "^3.4",
+        "fakerphp/faker": "^1.16",
+        "symfony/maker-bundle": "^1.33",
+        "symfony/stopwatch": "5.3.*",
+        "symfony/web-profiler-bundle": "5.3.*"
     },
     "config": {
         "optimize-autoloader": true,

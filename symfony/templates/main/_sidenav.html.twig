@@ -10,6 +10,6 @@
 
     <a href="{{ path('dashboard') }}" {% if active_element is same as 'dashboard' %}class="active"{% endif %}>Dashboard <i class="fas fa-home"></i></a>
     <a href="#" {% if active_element is same as 'calendar' %}class="active"{% endif %}>Calendar <i class="fas fa-calendar-alt"></i></a>
-    <a href="{{ path('password') }}" {% if active_element is same as 'password' %}class="active"{% endif %}>Passwords <i class="fas fa-lock"></i></a>
+    <a href="{{ path('credentials') }}" {% if active_element is same as 'credentials' %}class="active"{% endif %}>Passwords <i class="fas fa-lock"></i></a>
     <a href="#" {% if active_element is same as 'help' %}class="active"{% endif %}>Help <i class="fas fa-question"></i></a>
 </div>

@@ -81,6 +81,10 @@ a {
     color: var(--title-color);
 }
 
+.text {
+    color: #fff;
+}
+
 .display-block {
     padding: 10px 0;
 }
@@ -88,8 +92,8 @@ a {
 .display-block a {
     background-color: var(--sidenav-bg-color);
     display: block;
-    padding: 6px 0;
-    margin: 5px 20px;
+    padding: 6px 10px;
+    margin: 10px 20px;
     box-shadow: 2px 2px 3px -1px black;
     border-radius: 3px;
 }

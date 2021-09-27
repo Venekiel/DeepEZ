@@ -7,9 +7,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class PasswordController extends AbstractController
+class CredentialController extends AbstractController
 {
-    const ACTIVE_NAV_ELEMENT = 'password';
+    const ACTIVE_NAV_ELEMENT = 'credentials';
     // private EntityManagerInterface $entityManager;
 
     // public function __construct(EntityManagerInterface $entityManager) {
@@ -17,13 +17,13 @@ class PasswordController extends AbstractController
     // }
 
     /**
-     * @Route("/password", name="password")
+     * @Route("/credentials", name="credentials")
      */
-    public function password(CredentialRepository $repository): Response
+    public function credentials(CredentialRepository $repository): Response
     {
         $credentials = $repository->findall();
 
-        return $this->render('password/view.html.twig', [
+        return $this->render('credentials/view.html.twig', [
             'active_nav_element' => $this::ACTIVE_NAV_ELEMENT,
             'credentials' => $credentials,
         ]);

@@ -1,14 +1,19 @@
-version: "3.8"
+version: "3"
+
 services:
     nginx:
         container_name: nginx
-        image: kibatic/symfony:8.1
+        build: 
+            context: .
+            dockerfile: Dockerfile-nginx
         depends_on:
             - mysql 
         volumes: 
-            - .:/var/www
+            - ./symfony/:/var/www/symfony/
         ports: 
             - 8080:80
+        networks:
+            - symfony
     
     mysql:
         container_name: mysql
@@ -26,3 +31,6 @@ services:
 
 volumes:
     mysql:
+
+networks:
+    symfony:

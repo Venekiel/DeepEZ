@@ -19,7 +19,9 @@ class CredentialFixtures extends Fixture
         for ($i = 0; $i < $this::ITERATIONS; $i++)
         {
             $credential = (new Credential())
-                ->setName($faker->name())
+                ->setName($faker->domainName())
+                ->setUsername($faker->email())
+                ->setPassword($faker->password())
             ;
 
             $manager->persist($credential);

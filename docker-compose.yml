@@ -13,11 +13,11 @@ services:
         networks:
             - symfony
     
-    php:
-        container_name: php
+    symfony:
+        container_name: symfony
         build:
             context: .
-            dockerfile: Dockerfile-php
+            dockerfile: Dockerfile-symfony
         depends_on:
             - mysql
         environment:

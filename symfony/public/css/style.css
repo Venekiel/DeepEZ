@@ -3,6 +3,7 @@
     --sidenav-bg-color: rgb(24, 30, 54);
     --sidenav-width: 200px;
     --nav-element-padding-left: 8px;
+    --title-color: rgb(0, 171, 201);
   }
 
 body {
@@ -12,8 +13,12 @@ body {
     margin: 0;
 }
 
+a {
+    text-decoration: none;
+}
+
 /* Placeholder styling to empty logo space */
-.logo {
+.sidenav .logo {
     position: relative;
     /* width: var(--sidenav-width); */
     width: calc(var(--sidenav-width) - 2px);
@@ -22,7 +27,7 @@ body {
 }
 
 /* Placeholder styling for the label placed into the logo space */
-.logo p {
+.sidenav .logo p {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -51,9 +56,8 @@ body {
     text-align: left;
     width: calc(var(--sidenav-width) - var(--sidenav-element-padding--left));
     padding: 6px 0 6px 8px;
-    text-decoration: none;
     font-size: 25px;
-    color: rgb(0, 171, 201);
+    color: var(--title-color);
     display: block;
 }
 
@@ -71,4 +75,21 @@ body {
 .content {
     margin-left: var(--sidenav-width); /* Same as the width of the sidebar */
     padding: 0px 10px;
+}
+
+.title {
+    color: var(--title-color);
+}
+
+.display-block {
+    padding: 10px 0;
+}
+
+.display-block a {
+    background-color: var(--sidenav-bg-color);
+    display: block;
+    padding: 6px 0;
+    margin: 5px 20px;
+    box-shadow: 2px 2px 3px -1px black;
+    border-radius: 3px;
 }

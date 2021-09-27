@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\CredentialRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,15 +19,13 @@ class PasswordController extends AbstractController
     /**
      * @Route("/password", name="password")
      */
-    public function password(): Response
+    public function password(CredentialRepository $repository): Response
     {
-        // $credentials = $productRepository->findall();
-
-        // dump($credentials);
+        $credentials = $repository->findall();
 
         return $this->render('password/view.html.twig', [
             'active_nav_element' => $this::ACTIVE_NAV_ELEMENT,
-            // 'credentials' => $credentials,
+            'credentials' => $credentials,
         ]);
     }
 }

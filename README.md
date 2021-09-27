@@ -5,11 +5,11 @@ A life assistant app to help people with their everyday tasks
 1. Make sure to install project dependencies by running:
 
     ```bash
-    composer install
+    cd symfony && composer install
     ```
 2. Build and run docker containers:
     ```bash
-    docker-compose up
+    docker-compose up -d --build
     ```
 3. Now you should be able to access the website from your browser on the following url:
 http://localhost:8080/

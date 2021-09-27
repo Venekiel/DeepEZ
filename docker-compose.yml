@@ -6,8 +6,6 @@ services:
         build: 
             context: .
             dockerfile: Dockerfile-nginx
-        depends_on:
-            - mysql 
         volumes: 
             - ./symfony/:/var/www/symfony/
         ports: 
@@ -15,9 +13,24 @@ services:
         networks:
             - symfony
     
+    php:
+        container_name: php
+        build:
+            context: .
+            dockerfile: Dockerfile-php
+        depends_on:
+            - mysql
+        environment:
+            APP_ENV: dev
+        volumes:
+            - ./symfony/:/var/www/symfony/
+        networks:
+            - symfony 
+    
     mysql:
         container_name: mysql
         image: mysql:8.0.26
+        command: ['--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci', '--default-authentication-plugin=mysql_native_password']
         restart: always
         ports:
             - 3306:3306
@@ -28,6 +41,8 @@ services:
             # MYSQL_PASSWORD: password
             MYSQL_ROOT_PASSWORD: root
             MYSQL_DATABASE: database
+        networks:
+            - symfony 
 
 volumes:
     mysql:

@@ -7,6 +7,7 @@ services:
             - mysql 
         volumes: 
             - .:/var/www
+            - ./build/nginx/default.conf:/etc/nginx/sites-enabled/default:ro
         ports: 
             - 8080:80
     

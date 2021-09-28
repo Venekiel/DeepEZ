@@ -24,7 +24,7 @@ class CredentialController extends AbstractController
     {
         $credentials = $this->repository->findall();
 
-        return $this->render('credentials/view.html.twig', [
+        return $this->render('credentials/list.html.twig', [
             'nav_elements' => NavElementsEnum::getConstants(),
             'active_nav_element' => NavElementsEnum::CREDENTIALS,
             'credentials' => $credentials,
@@ -33,13 +33,13 @@ class CredentialController extends AbstractController
 
     
     /**
-     * @Route("/credential/{#id}", name="credential")
+     * @Route("/credential/{id}", name="credential")
      */
-    public function credential(CredentialRepository $repository, Credential $credential): Response
+    public function credential(Credential $credential): Response
     {
         return $this->render('credentials/view.html.twig', [
             'nav_elements' => NavElementsEnum::getConstants(),
-            'active_nav_element' => $this::ACTIVE_NAV_ELEMENT,
+            'active_nav_element' => NavElementsEnum::CREDENTIALS,
             'credential' => $credential,
         ]);
     }

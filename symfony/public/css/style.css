@@ -5,13 +5,16 @@
     --sidenav-width: 200px;
     --nav-element-padding-left: 8px;
     --title-color: rgb(0, 171, 201);
+    --text-color: rgb(220, 220, 220);
+    --warning-color: rgb(176, 65, 62);
   }
 
 body {
     background-color: var(--main-bg-color);
-    color: #fff;
+    color: var(--text-color);
     padding: 0;
     margin: 0;
+    font-family: 'Microsoft Sans Serif';
 }
 
 a {
@@ -83,22 +86,61 @@ a {
 }
 
 .text {
-    color: #fff;
+    color: var(--text-color);
 }
 
-.display-block {
-    padding: 10px 0;
-}
-
-.display-block a {
+.display-block > div {
+    position: relative;
     background-color: var(--sidenav-bg-color);
     display: block;
-    padding: 6px 10px;
     margin: 10px 20px;
     box-shadow: 2px 2px 3px -1px black;
-    border-radius: 3px;
+    font-family: 'Microsoft sans Serif';
 }
 
-.display-block a:hover {
+.display-block > div:hover {
+    background-color: var(--sidenav-lighten-bg-color);
+}
+
+.display-block > div .btn-container {
+    right: 0;
+    padding: 0 10px;
+}
+
+.fa-trash {
+    color: var(--warning-color);
+}
+
+#header {
+    position: relative;
+    padding: 15px 15px 5px 15px;
+}
+
+#header input {
+    position: absolute;
+    right: 15px;
+    width: 30vw;
+    padding: 5px;
+    top: 30%;
+}
+
+.middle {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+}
+
+.btn-add {
+    background-color: var(--title-color);
+    color: var(--text-color);
+}
+
+.btn {
+    padding: 6px 10px;
+    border-radius: 3px;
+    box-shadow: 2px 2px 3px -1px black;
+}
+
+.btn:hover {
     background-color: var(--sidenav-lighten-bg-color);
 }

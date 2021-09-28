@@ -1,6 +1,7 @@
 :root {
     --main-bg-color: rgb(46, 51, 73);
     --sidenav-bg-color: rgb(24, 30, 54);
+    --sidenav-lighten-bg-color: rgb(39, 48, 85);
     --sidenav-width: 200px;
     --nav-element-padding-left: 8px;
     --title-color: rgb(0, 171, 201);
@@ -69,7 +70,7 @@ a {
 
 .sidenav a:hover, .active {
     border-left: 5px solid rgb(0, 171, 201);
-    background-color: rgb(39, 48, 85);
+    background-color: var(--sidenav-lighten-bg-color);
 }
 
 .content {
@@ -96,4 +97,8 @@ a {
     margin: 10px 20px;
     box-shadow: 2px 2px 3px -1px black;
     border-radius: 3px;
+}
+
+.display-block a:hover {
+    background-color: var(--sidenav-lighten-bg-color);
 }

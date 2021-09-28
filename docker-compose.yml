@@ -2,7 +2,7 @@ version: "3"
 
 services:
     nginx:
-        container_name: nginx
+        container_name: deepez_nginx
         build: 
             context: .
             dockerfile: Dockerfile-nginx
@@ -14,7 +14,7 @@ services:
             - symfony
     
     symfony:
-        container_name: symfony
+        container_name: deepez_symfony
         build:
             context: .
             dockerfile: Dockerfile-symfony
@@ -28,7 +28,7 @@ services:
             - symfony 
     
     mysql:
-        container_name: mysql
+        container_name: deepez_mysql
         image: mysql:8.0.26
         command: ['--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci', '--default-authentication-plugin=mysql_native_password']
         restart: always

@@ -1,6 +1,7 @@
 {# 
     Required parameters :
-        - active_page : defines the nav element that will be in active state
+        - active_element : defines the nav element that will be in active state
+        - nav_elements : defines the available nav elements
 #}
 
 <div class="sidenav">   
@@ -8,8 +9,28 @@
         <p>My app logo here</p>
     </div>
 
-    <a href="{{ path('dashboard') }}" {% if active_element is same as 'dashboard' %}class="active"{% endif %}>Dashboard <i class="fas fa-home"></i></a>
-    <a href="#" {% if active_element is same as 'calendar' %}class="active"{% endif %}>Calendar <i class="fas fa-calendar-alt"></i></a>
-    <a href="{{ path('credentials') }}" {% if active_element is same as 'credentials' %}class="active"{% endif %}>Passwords <i class="fas fa-lock"></i></a>
-    <a href="#" {% if active_element is same as 'help' %}class="active"{% endif %}>Help <i class="fas fa-question"></i></a>
+    <a href="{{ path('dashboard') }}"
+        {% if active_element is same as nav_elements.DASHBOARD %}
+            class="active"
+        {% endif %}>
+        Dashboard <i class="fas fa-home"></i>
+    </a>
+    <a href="#"
+        {% if active_element is same as nav_elements.CALENDAR %}
+            class="active"
+        {% endif %}>
+        Calendar <i class="fas fa-calendar-alt"></i>
+    </a>
+    <a href="{{ path('credentials') }}"
+        {% if active_element is same as nav_elements.CREDENTIALS %}
+            class="active"
+        {% endif %}>
+        Passwords <i class="fas fa-lock"></i>
+    </a>
+    <a href="#"
+        {% if active_element is same as nav_elements.HELP %}
+            class="active"
+        {% endif %}>
+        Help <i class="fas fa-question"></i>
+    </a>
 </div>

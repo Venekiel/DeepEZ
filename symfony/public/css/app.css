@@ -1,0 +1,62 @@
+:root {
+    --main-bg-color: rgb(46, 51, 73);
+    --sidenav-bg-color: rgb(24, 30, 54);
+    --sidenav-lighten-bg-color: rgb(39, 48, 85);
+    --sidenav-width: 200px;
+    --nav-element-padding-left: 8px;
+    --title-color: rgb(0, 171, 201);
+    --text-color: rgb(220, 220, 220);
+    --warning-color: rgb(176, 65, 62);
+}
+
+body {
+    background-color: var(--main-bg-color);
+    color: var(--text-color);
+    padding: 0;
+    margin: 0;
+    font-family: 'Microsoft Sans Serif';
+}
+
+a {
+    text-decoration: none;
+}
+
+.content {
+    margin-left: var(--sidenav-width); /* Same as the width of the sidebar */
+    padding: 0px 10px;
+}
+
+.title {
+    color: var(--title-color);
+}
+
+.text {
+    color: var(--text-color);
+}
+
+.fa-trash {
+    color: var(--warning-color);
+}
+
+.middle {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+}
+
+.btn {
+    padding: 6px 10px;
+    border-radius: 3px;
+    box-shadow: 2px 2px 3px -1px black;
+    display: block;
+    transition-duration: .02s;
+}
+
+.btn:hover {
+    background-color: var(--sidenav-lighten-bg-color);
+}
+
+.btn:active {
+    box-shadow: none;
+    transform: translate(1px, 1px);
+}

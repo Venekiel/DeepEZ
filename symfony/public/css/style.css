@@ -7,7 +7,7 @@
     --title-color: rgb(0, 171, 201);
     --text-color: rgb(220, 220, 220);
     --warning-color: rgb(176, 65, 62);
-  }
+}
 
 body {
     background-color: var(--main-bg-color);
@@ -68,7 +68,6 @@ a {
 .sidenav a i {
     position: absolute;
     right: 12px;
-    top: 10px;
 }
 
 .sidenav a:hover, .active {
@@ -130,17 +129,25 @@ a {
     transform: translate(0, -50%);
 }
 
-.btn-add {
-    background-color: var(--title-color);
-    color: var(--text-color);
-}
-
 .btn {
     padding: 6px 10px;
     border-radius: 3px;
     box-shadow: 2px 2px 3px -1px black;
+    display: block;
+    transition-duration: .02s;
 }
 
 .btn:hover {
     background-color: var(--sidenav-lighten-bg-color);
+}
+
+.btn:active {
+    box-shadow: none;
+    transform: translate(1px, 1px);
+}
+
+.btn-add {
+    background-color: var(--title-color);
+    color: var(--text-color);
+    display: inline-block;
 }

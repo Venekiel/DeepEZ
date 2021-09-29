@@ -1,0 +1,48 @@
+form {
+    background-color: var(--sidenav-bg-color);
+    border-radius: 15px;
+    margin: 15px;
+    padding: 12px;
+    border-right: 7px solid var(--title-color);
+    border-bottom: 7px solid var(--title-color);
+    display: grid;
+    grid-template: repeat(4, 1fr) / max-content 1fr max-content;
+}
+
+form * {
+    margin: 3px;
+}
+
+form label {
+    margin-left: 6px;
+    margin-right: 6px;
+    text-align: right;
+    color: var(--title-color);
+    font-weight: bold;
+    padding: 6px 0;
+}
+
+form input {
+    margin-left: 6px;
+    background-color: var(--main-bg-color);
+    border-color: var(--sidenav-bg-color);
+    color: var(--text-color);
+    text-align: center;
+    border-radius: 6px;
+    min-width: 220px;
+    border-style: solid;
+    padding: 6px;
+}
+
+input:focus-visible {
+    outline: none;
+}
+
+.actions {
+    position: relative;
+    width: 25px;
+}
+
+.actions * {
+    right: 0px;
+}

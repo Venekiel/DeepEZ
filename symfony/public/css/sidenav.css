@@ -51,3 +51,8 @@
     border-left: 5px solid rgb(0, 171, 201);
     background-color: var(--sidenav-lighten-bg-color);
 }
+
+.content {
+    margin-left: var(--sidenav-width); /* Same as the width of the sidebar */
+    padding: 0px 10px;
+}

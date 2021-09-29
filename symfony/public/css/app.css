@@ -21,11 +21,6 @@ a {
     text-decoration: none;
 }
 
-.content {
-    margin-left: var(--sidenav-width); /* Same as the width of the sidebar */
-    padding: 0px 10px;
-}
-
 .title {
     color: var(--title-color);
 }
@@ -38,7 +33,7 @@ a {
     color: var(--warning-color);
 }
 
-.middle {
+.vertical-center {
     position: absolute;
     top: 50%;
     transform: translate(0, -50%);

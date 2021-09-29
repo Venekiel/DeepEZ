@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Credential;
 use App\Enum\NavElementsEnum;
+use App\Form\CredentialType as FormCredentialType;
+use App\Form\Type\CredentialType;
 use App\Repository\CredentialRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,10 +41,12 @@ class CredentialController extends AbstractController
      */
     public function credential(Credential $credential): Response
     {
-        return $this->render('credentials/view.html.twig', [
+        $form = $this->createForm(CredentialType::class, $credential);
+
+        return $this->renderForm('credentials/view.html.twig', [
             'nav_elements' => NavElementsEnum::getConstants(),
             'active_nav_element' => NavElementsEnum::CREDENTIALS,
-            'credential' => $credential,
+            'form' => $form,
         ]);
     }
 

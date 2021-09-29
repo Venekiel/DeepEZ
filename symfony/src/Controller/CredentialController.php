@@ -9,6 +9,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/credentials")
+ */
 class CredentialController extends AbstractController
 {
     private CredentialRepository $repository;
@@ -18,7 +21,7 @@ class CredentialController extends AbstractController
     }
 
     /**
-     * @Route("/credentials", name="credentials")
+     * @Route("/", name="credentials")
      */
     public function credentials(): Response
     {
@@ -30,10 +33,9 @@ class CredentialController extends AbstractController
             'credentials' => $credentials,
         ]);
     }
-
     
     /**
-     * @Route("/credential/{id}", name="credential")
+     * @Route("/{id}", name="credential", requirements={"id"="\d+"})
      */
     public function credential(Credential $credential): Response
     {
@@ -42,5 +44,39 @@ class CredentialController extends AbstractController
             'active_nav_element' => NavElementsEnum::CREDENTIALS,
             'credential' => $credential,
         ]);
+    }
+
+    /**
+     * @Route("/new", name="add-credential")
+     */
+    public function addCredential(): Response
+    {
+        return $this->json(["status" => 200, "Info" => "This route is still a Work In Progress"]);
+    }
+
+    /**
+     * @Route("/edit/{id}", name="edit-credential", requirements={"id"="\d+"})
+     */
+    public function editCredential(Credential $credential): Response
+    {
+        return $this->json(["status" => 200, "Info" => "This route is still a Work In Progress", "credential" => $credential]);
+    }
+
+    /**
+     * @Route("/delete/{id}", name="delete-credential", requirements={"id"="\d+"})
+     */
+    public function deleteCredential(Credential $credential = null): Response
+    {
+        /**
+         * Deletes Credential only if one is found in database
+         */
+        if ($credential !== null)
+        {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($credential);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('credentials');
     }
 }

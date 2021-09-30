@@ -56,7 +56,13 @@ class CredentialController extends AbstractController
      */
     public function createCredential(): Response
     {
-        return $this->json(["status" => 200, "Info" => "This route is still a Work In Progress"]);
+        $form = $this->createForm(CredentialType::class, new Credential());
+
+        return $this->renderform('credentials/create.html.twig', [
+            'nav_elements' => NavElementsEnum::getConstants(),
+            'active_nav_element' => NavElementsEnum::CREDENTIALS,
+            'form' => $form,    
+        ]);
     }
 
     /**

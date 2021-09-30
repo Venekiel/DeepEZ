@@ -53,8 +53,33 @@ a {
 }
 
 #header {
-    position: relative;
     padding: 20px 15px 10px 15px;
+    display: grid;
+    grid-template: repeat(1, 1fr) / repeat(3, 1fr);
+    grid-template-areas: "left center right";
+}
+
+#header * {
+    width: max-content;
+}
+
+
+#header .previous {
+    justify-self: start;
+    grid-area: left;
+}
+
+#header .title {
+    justify-self: center;
+    align-self: center;
+    color: var(--text-color);
+    font-weight: bold;
+    grid-area: center;
+}
+
+#header .align-right {
+    justify-self: end;
+    grid-area: right;
 }
 
 #header .btn {

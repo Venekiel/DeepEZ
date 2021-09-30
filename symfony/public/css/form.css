@@ -11,6 +11,7 @@ form {
 
 form * {
     margin: 3px;
+    align-self: center;
 }
 
 form label {

@@ -29,10 +29,6 @@ a {
     color: var(--text-color);
 }
 
-.fa-trash {
-    color: var(--warning-color);
-}
-
 .vertical-center {
     position: absolute;
     top: 50%;
@@ -54,4 +50,19 @@ a {
 .btn:active {
     box-shadow: none;
     transform: translate(1px, 1px);
+}
+
+#header {
+    position: relative;
+    padding: 20px 15px 10px 15px;
+}
+
+#header .btn {
+    background-color: var(--title-color);
+    color: var(--text-color);
+    display: inline-block;
+}
+
+.bg-warning {
+    background-color: var(--warning-color) !important;
 }

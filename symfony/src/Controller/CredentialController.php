@@ -47,6 +47,7 @@ class CredentialController extends AbstractController
             'nav_elements' => NavElementsEnum::getConstants(),
             'active_nav_element' => NavElementsEnum::CREDENTIALS,
             'form' => $form,
+            'id' => $credential->getId(),
         ]);
     }
 

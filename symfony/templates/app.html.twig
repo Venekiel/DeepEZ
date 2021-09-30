@@ -5,6 +5,10 @@
     <link href="{{ asset('css/sidenav.css') }}" rel="stylesheet" media="screen"/>
 {% endblock %}
 
+{% block javascripts %}
+    <script src="https://kit.fontawesome.com/b247ef6678.js" crossorigin="anonymous"></script>
+{% endblock %}
+
 {% block body %}
     {{ include('main/_sidenav.html.twig', { 'active_element': active_nav_element, 'nav_elements': nav_elements }) }}
 

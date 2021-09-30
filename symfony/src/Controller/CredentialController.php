@@ -37,13 +37,13 @@ class CredentialController extends AbstractController
     }
     
     /**
-     * @Route("/{id}", name="credential", requirements={"id"="\d+"})
+     * @Route("/{id}", name="read-credential", requirements={"id"="\d+"})
      */
-    public function credential(Credential $credential): Response
+    public function readCredential(Credential $credential): Response
     {
         $form = $this->createForm(CredentialType::class, $credential);
 
-        return $this->renderForm('credentials/view.html.twig', [
+        return $this->renderForm('credentials/read.html.twig', [
             'nav_elements' => NavElementsEnum::getConstants(),
             'active_nav_element' => NavElementsEnum::CREDENTIALS,
             'form' => $form,
@@ -52,17 +52,17 @@ class CredentialController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="add-credential")
+     * @Route("/new", name="create-credential")
      */
-    public function addCredential(): Response
+    public function createCredential(): Response
     {
         return $this->json(["status" => 200, "Info" => "This route is still a Work In Progress"]);
     }
 
     /**
-     * @Route("/edit/{id}", name="edit-credential", requirements={"id"="\d+"})
+     * @Route("/edit/{id}", name="update-credential", requirements={"id"="\d+"})
      */
-    public function editCredential(Credential $credential): Response
+    public function updateCredential(Credential $credential): Response
     {
         return $this->json(["status" => 200, "Info" => "This route is still a Work In Progress", "credential" => $credential]);
     }

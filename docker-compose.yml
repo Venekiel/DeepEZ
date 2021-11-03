@@ -9,7 +9,7 @@ services:
         volumes: 
             - ./symfony/:/var/www/symfony/
         ports: 
-            - 8080:80
+            - 80:80
         networks:
             - symfony
     
@@ -35,17 +35,14 @@ services:
         ports:
             - 3306:3306
         volumes:
-            - mysql:/var/lib/mysql
+            - ./database:/var/lib/mysql
         environment:
             # MYSQL_USER: user
             # MYSQL_PASSWORD: password
             MYSQL_ROOT_PASSWORD: root
-            MYSQL_DATABASE: database
+            MYSQL_DATABASE: deepez
         networks:
-            - symfony 
-
-volumes:
-    mysql:
+            - symfony
 
 networks:
     symfony:

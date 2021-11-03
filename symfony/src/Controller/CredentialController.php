@@ -7,6 +7,7 @@ use App\Enum\NavElementsEnum;
 use App\Form\Type\CredentialType;
 use App\Repository\CredentialRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -53,9 +54,17 @@ class CredentialController extends AbstractController
     /**
      * @Route("/new", name="create-credential")
      */
-    public function createCredential(): Response
+    public function createCredential(Request $request): Response
     {
-        $form = $this->createForm(CredentialType::class, new Credential());
+        $credential = new Credential();
+        $form = $this->createForm(CredentialType::class, $credential);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($credential);
+            $entityManager->flush();
+        }
 
         return $this->renderform('credentials/create.html.twig', [
             'nav_elements' => NavElementsEnum::getConstants(),

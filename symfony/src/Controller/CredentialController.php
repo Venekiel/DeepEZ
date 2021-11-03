@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Credential;
 use App\Enum\NavElementsEnum;
-use App\Form\CredentialType as FormCredentialType;
 use App\Form\Type\CredentialType;
 use App\Repository\CredentialRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

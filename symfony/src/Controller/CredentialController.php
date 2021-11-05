@@ -65,8 +65,10 @@ class CredentialController extends AbstractController
             $template = 'credentials/create.html.twig';
         } else {
             $credential = $entityManager->getRepository(Credential::class)->findOneBy(['id' => $id]);
-            $template = 'credentials/create.html.twig';
+            $template = 'credentials/edit.html.twig';
         }
+
+        dump($credential->getPassword());
 
         $form = $this->createForm(CredentialType::class, $credential);
 

@@ -4,6 +4,7 @@ namespace App\Form\Type;
 
 use App\Entity\Credential;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,9 +16,16 @@ class CredentialType extends AbstractType
     {
         $builder
             ->add('name', TextType::class)
-            ->add('username', TextType::class)
-            ->add('password', TextType::class)
-            ->add('link', TextType::class)
+            ->add('username', TextType::class, [
+                'required' => false,
+            ])
+            ->add('password', PasswordType::class, [
+                'required' => false,
+                'always_empty' => false,
+            ])
+            ->add('link', TextType::class, [
+                'required' => false,
+            ])
             ->add('register', SubmitType::class, ['label' => 'Register credential'])
         ;
     }

@@ -7,6 +7,7 @@ use App\Enum\NavElementsEnum;
 use App\Form\Type\CredentialType;
 use App\Repository\CredentialRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -52,33 +53,36 @@ class CredentialController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="create-credential")
+     * @Route("/edit/{id}", name="edit-credential", requirements={"id"="\d+"})
      */
-    public function createCredential(Request $request): Response
+    public function editCredential(Request $request, $id = null)
     {
-        $credential = new Credential();
+        $entityManager = $this->getDoctrine()->getManager();
+
+        /** Detect if we need to create or update a credential */
+        if ($id === null) {
+            $credential = new Credential();
+            $template = 'credentials/create.html.twig';
+        } else {
+            $credential = $entityManager->getRepository(Credential::class)->findOneBy(['id' => $id]);
+            $template = 'credentials/create.html.twig';
+        }
+
         $form = $this->createForm(CredentialType::class, $credential);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($credential);
             $entityManager->flush();
+
+            return new RedirectResponse($this->generateUrl('read-credential', ['id' => $credential->getId()]));
         }
 
-        return $this->renderform('credentials/create.html.twig', [
+        return $this->renderform($template, [
             'nav_elements' => NavElementsEnum::getConstants(),
             'active_nav_element' => NavElementsEnum::CREDENTIALS,
             'form' => $form,    
         ]);
-    }
-
-    /**
-     * @Route("/edit/{id}", name="update-credential", requirements={"id"="\d+"})
-     */
-    public function updateCredential(Credential $credential): Response
-    {
-        return $this->json(["status" => 200, "Info" => "This route is still a Work In Progress", "credential" => $credential]);
     }
 
     /**

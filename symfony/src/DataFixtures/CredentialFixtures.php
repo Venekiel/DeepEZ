@@ -9,7 +9,7 @@ use Faker;
 
 class CredentialFixtures extends Fixture
 {
-    const ITERATIONS = 10;
+    const ITERATIONS = 50;
     // private $faker = Factory::create();
 
     public function load(ObjectManager $manager)

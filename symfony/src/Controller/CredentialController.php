@@ -24,7 +24,7 @@ class CredentialController extends AbstractController
     }
 
     /**
-     * @Route("/", name="credentials")
+     * @Route("", name="credentials")
      */
     public function credentials(): Response
     {
@@ -67,8 +67,6 @@ class CredentialController extends AbstractController
             $credential = $entityManager->getRepository(Credential::class)->findOneBy(['id' => $id]);
             $template = 'credentials/edit.html.twig';
         }
-
-        dump($credential->getPassword());
 
         $form = $this->createForm(CredentialType::class, $credential);
 

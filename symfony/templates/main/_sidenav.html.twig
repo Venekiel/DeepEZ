@@ -9,28 +9,46 @@
         <p>My app logo here</p>
     </div>
 
-    <a href="{{ path('dashboard') }}"
-        {% if active_element is same as nav_elements.DASHBOARD %}
-            class="active"
-        {% endif %}>
-        Dashboard <i class="fas fa-home vertical-center"></i>
-    </a>
-    <a href="#"
-        {% if active_element is same as nav_elements.CALENDAR %}
-            class="active"
-        {% endif %}>
-        Calendar <i class="fas fa-calendar-alt vertical-center"></i>
-    </a>
-    <a href="{{ path('credentials') }}"
-        {% if active_element is same as nav_elements.CREDENTIALS %}
-            class="active"
-        {% endif %}>
-        Passwords <i class="fas fa-lock vertical-center"></i>
-    </a>
-    <a href="#"
-        {% if active_element is same as nav_elements.HELP %}
-            class="active"
-        {% endif %}>
-        Help <i class="fas fa-question vertical-center"></i>
-    </a>
+    {% set sidenav_element_template = 'main/sidenav/_element.html.twig' %}
+    
+    {{ include(sidenav_element_template, { 
+        'name': nav_elements.DASHBOARD,
+        'url': path('dashboard'),
+        'active_element': active_element,
+        'logo': '<i class="fas fa-home vertical-center"></i>',
+        })
+    }}
+
+    {{ include(sidenav_element_template, {
+        'name': nav_elements.FINANCIALS,
+        'url': '#',
+        'active_element': active_element,
+        'logo': '<i class="fas fa-coins vertical-center"></i>',
+
+        })
+    }}
+
+    {{ include(sidenav_element_template, { 
+        'name': nav_elements.CALENDAR, 
+        'url': '#',
+        'active_element': active_element,
+        'logo': '<i class="fas fa-calendar-alt vertical-center"></i>',
+        })
+    }}
+
+    {{ include(sidenav_element_template, { 
+        'name': nav_elements.CREDENTIALS, 
+        'url': path('credentials'),
+        'active_element': active_element,
+        'logo': '<i class="fas fa-lock vertical-center"></i>',
+        })
+    }}
+
+    {{ include(sidenav_element_template, { 
+        'name': nav_elements.HELP, 
+        'url': '#',
+        'active_element': active_element,
+        'logo': '<i class="fas fa-question vertical-center"></i>',
+        })
+    }}
 </div>

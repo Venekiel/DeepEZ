@@ -35,6 +35,15 @@ form input {
     padding: 6px;
 }
 
+form button[type="submit"] {
+    grid-column: 2;
+    width: 25%;
+    justify-self: center;
+    background-color: var(--title-color);
+    border: none;
+    color: #fff;
+}
+
 input:focus-visible {
     outline: none;
 }

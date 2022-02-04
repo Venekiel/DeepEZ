@@ -6,7 +6,9 @@ use App\Entity\Credential;
 use App\Enum\NavElementsEnum;
 use App\Form\Type\CredentialType;
 use App\Repository\CredentialRepository;
+use App\Services\PasswordGeneratorService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -101,5 +103,17 @@ class CredentialController extends AbstractController
         }
 
         return $this->redirectToRoute('credentials');
+    }
+
+    /**
+     * @Route("/test", name="test")
+     */
+    public function test(): JsonResponse
+    {
+        $generator = new PasswordGeneratorService();
+
+        $test = $generator->generate();
+
+        return new JsonResponse(['test' => $test]);
     }
 }

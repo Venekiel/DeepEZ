@@ -42,7 +42,7 @@ A life assistant app to help people with their everyday tasks
     ```
 
 3. Now you should be able to access the website from your browser on the following url:
-http://localhost:8080/
+http://localhost/
 
 
 ## What you can do from inside the symfony container ?

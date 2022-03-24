@@ -1,2 +1,5 @@
 # VsCode files
 /.vscode/
+
+# Database files
+/database/

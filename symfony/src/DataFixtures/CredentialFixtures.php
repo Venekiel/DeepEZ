@@ -3,18 +3,16 @@
 namespace App\DataFixtures;
 
 use App\Entity\Credential;
-use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use Faker;
+use Faker\Factory;
 
-class CredentialFixtures extends Fixture
+class CredentialFixtures extends AbstractFixtures
 {
     const ITERATIONS = 50;
-    // private $faker = Factory::create();
 
     public function load(ObjectManager $manager)
     {
-        $faker = Faker\Factory::create();
+        $faker = Factory::create();
 
         for ($i = 0; $i < $this::ITERATIONS; $i++)
         {

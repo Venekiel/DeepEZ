@@ -21,13 +21,18 @@ abstract class AbstractUserFixtures extends AbstractFixtures
         $this->userManager = $userManager;
     }
 
-    protected function loadUser(ObjectManager $manager, string $emailParameterKey, string $passwordParameterKey, array $roles = ['ROLE_USER'])
+    protected function loadUser(ObjectManager $manager, string $usernameParameterKey, string $emailParameterKey, string $passwordParameterKey, array $roles = ['ROLE_USER'], string $reference = null)
     {
+        $username = $this->parameterBag->get($usernameParameterKey);
         $email = $this->parameterBag->get($emailParameterKey);
         $password = $this->parameterBag->get($passwordParameterKey);
 
-        $this->user = $this->userManager->createUser($email, $password, $roles);
+        $this->user = $this->userManager->createUser($username, $email, $password, $roles);
+
         $manager->persist($this->user);
+        $manager->flush();
+
+        $reference !== null ? $this->addReference($reference, $this->user) : '';
     }
 
     public static function getGroups(): array

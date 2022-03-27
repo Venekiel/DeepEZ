@@ -6,13 +6,14 @@ use App\Entity\Credential;
 use App\Enum\NavElementsEnum;
 use App\Form\Type\CredentialType;
 use App\Repository\CredentialRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Services\PasswordGeneratorService;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/credentials")
@@ -21,8 +22,9 @@ class CredentialController extends AbstractController
 {
     private CredentialRepository $repository;
 
-    public function __construct(CredentialRepository $repository) {
+    public function __construct(EntityManagerInterface $entityManager, CredentialRepository $repository) {
         $this->repository = $repository;
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -30,7 +32,7 @@ class CredentialController extends AbstractController
      */
     public function credentials(): Response
     {
-        $credentials = $this->repository->findall();
+        $credentials = $this->repository->findBy(['user' => $this->getUser()]);
 
         return $this->render('credentials/list.html.twig', [
             'nav_elements' => NavElementsEnum::getConstants(),
@@ -59,14 +61,12 @@ class CredentialController extends AbstractController
      */
     public function editCredential(Request $request, $id = null)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-
         /** Detect if we need to create or update a credential */
         if ($id === null) {
             $credential = new Credential();
             $template = 'credentials/create.html.twig';
         } else {
-            $credential = $entityManager->getRepository(Credential::class)->findOneBy(['id' => $id]);
+            $credential = $this->entityManager->getRepository(Credential::class)->findOneBy(['id' => $id]);
             $template = 'credentials/edit.html.twig';
         }
 
@@ -74,8 +74,8 @@ class CredentialController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($credential);
-            $entityManager->flush();
+            $this->entityManager->persist($credential);
+            $this->entityManager->flush();
 
             return new RedirectResponse($this->generateUrl('read-credential', ['id' => $credential->getId()]));
         }
@@ -97,9 +97,8 @@ class CredentialController extends AbstractController
          */
         if ($credential !== null)
         {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($credential);
-            $entityManager->flush();
+            $this->entityManager->remove($credential);
+            $this->entityManager->flush();
         }
 
         return $this->redirectToRoute('credentials');

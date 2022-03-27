@@ -15,9 +15,9 @@ class UserManagerService
         $this->passwordHasher = $passwordHasher;
     }
 
-    public function createUser(string $email, string $password, array $roles = ['ROLE_USER']): User
+    public function createUser(string $username, string $email, string $password, array $roles = ['ROLE_USER']): User
     {
-        $this->user = new User();
+        $this->user = new User($username, $email);
 
         /** hash the password */
         $password = $this->passwordHasher->hashPassword(
@@ -26,13 +26,11 @@ class UserManagerService
         );
 
         /** Fill the user data */
-        $this->user = (new User())
-            ->setEmail($email)
+        $this->user
             ->setPassword($password)
             ->setRoles($roles)
         ;
 
         return $this->user;
     }
-
 }

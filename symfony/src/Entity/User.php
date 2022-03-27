@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -18,6 +19,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * @ORM\Column(type="string", length=180, unique=true)
+     */
+    private $username;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
@@ -35,9 +41,45 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $password;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Credential", mappedBy="user")
+     * @var Collection $credentials
+     */
+    private Collection $credentials;
+
+    public function __construct(string $username, string $email, string $password = '', array $roles = ['ROLE_USER'])
+    {
+        $this
+            ->setUsername($username)
+            ->setEmail($email)
+            ->setPassword($password)
+            ->setRoles($roles)
+        ;        
+    }
+
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * Get the value of username
+     */ 
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    /**
+     * Set the value of username
+     *
+     * @return  self
+     */ 
+    public function setUsername($username): self
+    {
+        $this->username = $username;
+
+        return $this;
     }
 
     public function getEmail(): ?string
@@ -104,4 +146,52 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
-}
+
+    /**
+     * Get $credentials
+     *
+     * @return Collection
+     */ 
+    public function getCredentials(): Collection
+    {
+        return $this->credentials;
+    }
+
+    /**
+     * Set $credentials
+     *
+     * @param array $credentials
+     *
+     * @return  self
+     */ 
+    public function setCredentials(array $credentials): self
+    {
+        $this->credentials = $credentials;
+
+        return $this;
+    }
+
+    public function addCredentials(array $credentials): self
+    {
+        foreach ($credentials as $credential)
+        {
+            $this->credentials->add($credential);
+        }
+
+        return $this;
+    }
+
+    # public function removeCredentials(array $credentials): self
+    # {
+    #     foreach ($credentials as $credential)
+    #     {
+    #         /** Search for the credential to remove */
+    #         $key = array_search($credential, $this->credentials);
+    #     
+    #         /** Delete it if found */
+    #         $key !== false ? array_splice($this->credentials, $key, 1) : '';
+    #     }
+    # 
+    #     return $this;
+    # }
+}   

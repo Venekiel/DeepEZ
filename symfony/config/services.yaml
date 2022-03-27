@@ -4,10 +4,13 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
+    super_admin_username: '%env(resolve:SUPER_ADMIN_USERNAME)%'
     super_admin_email: '%env(resolve:SUPER_ADMIN_EMAIL)%'
     super_admin_password: '%env(resolve:SUPER_ADMIN_PASSWORD)%'
+    admin_username: '%env(resolve:ADMIN_USERNAME)%'
     admin_email: '%env(resolve:ADMIN_EMAIL)%'
     admin_password: '%env(resolve:ADMIN_PASSWORD)%'
+    user_username: '%env(resolve:USER_USERNAME)%'
     user_email: '%env(resolve:USER_EMAIL)%'
     user_password: '%env(resolve:USER_PASSWORD)%'
 

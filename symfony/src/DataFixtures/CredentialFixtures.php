@@ -39,7 +39,7 @@ class CredentialFixtures extends AbstractFixtures implements DependentFixtureInt
             ;
 
             $randomUser = $users[rand(1, $userCount) - 1];
-            $credential->setUser($randomUser);
+            $randomUser->addCredential($credential);
 
             $manager->persist($credential);
         }

@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CredentialRepository;
 
@@ -17,11 +16,6 @@ class Credential
      * @ORM\Column(type="integer")
      */
     private $id;
-
-    /** 
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="credentials")
-     */
-    private User $user;
     
     /**
      * @ORM\Column(type="string", length=255)
@@ -43,30 +37,14 @@ class Credential
      */
     private $link;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="credentials")
+     */
+    private $user;
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    
-    /**
-     * Get the value of user
-     */ 
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    /**
-     * Set the value of user
-     *
-     * @return  self
-     */ 
-    public function setUser($user): self
-    {
-        $this->user = $user;
-
-        return $this;
     }
 
     public function getName(): ?string
@@ -113,6 +91,18 @@ class Credential
     public function setLink(?string $link): self
     {
         $this->link = $link;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

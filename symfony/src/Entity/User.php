@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\Collection;
@@ -42,10 +43,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $password;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Credential", mappedBy="user")
-     * @var Collection $credentials
+     * @ORM\OneToMany(targetEntity=Credential::class, mappedBy="user")
      */
-    private Collection $credentials;
+    private $credentials;
 
     public function __construct(string $username, string $email, string $password = '', array $roles = ['ROLE_USER'])
     {
@@ -54,7 +54,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             ->setEmail($email)
             ->setPassword($password)
             ->setRoles($roles)
-        ;        
+        ;
+        $this->credential = new ArrayCollection();        
     }
 
     public function getId(): ?int
@@ -148,50 +149,32 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * Get $credentials
-     *
-     * @return Collection
-     */ 
+     * @return Collection<int, Credential>
+     */
     public function getCredentials(): Collection
     {
         return $this->credentials;
     }
 
-    /**
-     * Set $credentials
-     *
-     * @param array $credentials
-     *
-     * @return  self
-     */ 
-    public function setCredentials(array $credentials): self
+    public function addCredential(Credential $credential): self
     {
-        $this->credentials = $credentials;
-
-        return $this;
-    }
-
-    public function addCredentials(array $credentials): self
-    {
-        foreach ($credentials as $credential)
-        {
-            $this->credentials->add($credential);
+        if (!$this->credentials->contains($credential)) {
+            $this->credential[] = $credential;
+            $credential->setUser($this);
         }
 
         return $this;
     }
 
-    # public function removeCredentials(array $credentials): self
-    # {
-    #     foreach ($credentials as $credential)
-    #     {
-    #         /** Search for the credential to remove */
-    #         $key = array_search($credential, $this->credentials);
-    #     
-    #         /** Delete it if found */
-    #         $key !== false ? array_splice($this->credentials, $key, 1) : '';
-    #     }
-    # 
-    #     return $this;
-    # }
+    public function removeCredential(Credential $credential): self
+    {
+        if ($this->credentials->removeElement($credential)) {
+            // set the owning side to null (unless already changed)
+            if ($credential->getUser() === $this) {
+                $credential->setUser(null);
+            }
+        }
+
+        return $this;
+    }
 }   

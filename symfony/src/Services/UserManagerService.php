@@ -17,7 +17,10 @@ class UserManagerService
 
     public function createUser(string $username, string $email, string $password, array $roles = ['ROLE_USER']): User
     {
-        $this->user = new User($username, $email);
+        $this->user = (new User())
+            ->setUsername($username)
+            ->setEmail($email)
+        ;
 
         /** hash the password */
         $password = $this->passwordHasher->hashPassword(

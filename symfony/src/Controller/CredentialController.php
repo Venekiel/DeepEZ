@@ -46,7 +46,9 @@ class CredentialController extends AbstractController
      */
     public function create(Request $request): Response
     {
-        $credential = new Credential();
+        $credential = (new Credential())
+            ->setUser($this->getUser())
+        ;
 
         $form = $this->createForm(CredentialType::class, $credential);
 

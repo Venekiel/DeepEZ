@@ -1,12 +1,9 @@
 form {
     background-color: var(--sidenav-bg-color);
-    border-radius: 15px;
     margin: 15px;
     padding: 12px;
-    border-right: 7px solid var(--title-color);
-    border-bottom: 7px solid var(--title-color);
+    box-shadow: 2px 2px 5px 0px black;
     display: grid;
-    grid-template: repeat(4, 1fr) / max-content 1fr max-content;
 }
 
 form * {
@@ -35,8 +32,12 @@ form input {
     padding: 6px;
 }
 
+form input[type="checkbox"] {
+    justify-self: start;
+    min-width: 0;
+}
+
 form button[type="submit"] {
-    grid-column: 2;
     width: 25%;
     justify-self: center;
     background-color: var(--title-color);

@@ -1,8 +1,17 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet" media="screen"/>
+    <link href="{{ asset('css/form.css') }}" rel="stylesheet" media="screen"/>
+    <link href="{{ asset('css/login/layout.css') }}" rel="stylesheet" media="screen"/>
+    <link href="{{ asset('css/login/login.css') }}" rel="stylesheet" media="screen"/>
+{% endblock %}
+
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
+<h1 class="h3 mb-3 font-weight-normal">Please sign in or <a href="{{ path('app_register') }}">create an account</a></h1>
 <form method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -14,7 +23,6 @@
         </div>
     {% endif %}
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in or <a href="{{ path('app_register') }}">create an account</a></h1>
     <label for="inputEmail">Email</label>
     <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
     <label for="inputPassword">Password</label>

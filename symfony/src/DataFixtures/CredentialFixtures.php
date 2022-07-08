@@ -2,19 +2,33 @@
 
 namespace App\DataFixtures;
 
+use Faker\Factory;
 use App\Entity\Credential;
-use Doctrine\Bundle\FixturesBundle\Fixture;
+use App\Entity\User;
 use Doctrine\Persistence\ObjectManager;
-use Faker;
+use App\DataFixtures\User\{
+    AdminUserFixtures,
+    SuperAdminUserFixtures,
+    UserFixtures
+};
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-class CredentialFixtures extends Fixture
+class CredentialFixtures extends AbstractFixtures implements DependentFixtureInterface
 {
     const ITERATIONS = 50;
-    // private $faker = Factory::create();
 
     public function load(ObjectManager $manager)
     {
-        $faker = Faker\Factory::create();
+        $faker = Factory::create();
+
+        /** @var User[] $users */
+        $users = [
+            $this->getReference(AdminUserFixtures::REFERENCE),
+            $this->getReference(SuperAdminUserFixtures::REFERENCE),
+            $this->getReference(UserFixtures::REFERENCE)
+        ];
+
+        $userCount = count($users);
 
         for ($i = 0; $i < $this::ITERATIONS; $i++)
         {
@@ -24,9 +38,21 @@ class CredentialFixtures extends Fixture
                 ->setPassword($faker->password())
             ;
 
+            $randomUser = $users[rand(1, $userCount) - 1];
+            $randomUser->addCredential($credential);
+
             $manager->persist($credential);
         }
 
         $manager->flush();
+    }
+
+    public function getDependencies()
+    {
+        return [
+            AdminUserFixtures::class,
+            SuperAdminUserFixtures::class,
+            UserFixtures::class
+        ];
     }
 }

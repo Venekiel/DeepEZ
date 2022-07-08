@@ -26,6 +26,16 @@ services:
             - ./symfony/:/var/www/symfony/
         networks:
             - symfony 
+
+###> symfony/mailer ###
+    mailer:
+        image: tophfr/mailcatcher
+        ports: 
+            - 1025:25
+            - 1080:80
+        networks:
+            - symfony
+###< symfony/mailer ###
     
     mysql:
         container_name: deepez_mysql

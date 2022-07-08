@@ -2,8 +2,8 @@
 
 namespace App\Entity;
 
-use App\Repository\CredentialRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CredentialRepository;
 
 /**
  * @ORM\Entity(repositoryClass=CredentialRepository::class)
@@ -36,6 +36,11 @@ class Credential
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $link;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="credentials")
+     */
+    private $user;
 
     public function getId(): ?int
     {
@@ -86,6 +91,18 @@ class Credential
     public function setLink(?string $link): self
     {
         $this->link = $link;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

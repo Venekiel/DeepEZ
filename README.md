@@ -19,29 +19,30 @@ A life assistant app to help people with their everyday tasks
         composer install
     ```
 
-3. Install database migrations
-    
-    From insdie the Symfony container:
+3. Setup the database from inside the Symfony container
+
+
+    Create the database :
     ```bash
-        php bin/console doctrine:migrations:migrate
+        symfony console doctrine:database:create
     ```
-    **OR** 
+
+    Update the schema :
+    ```bash
+        php bin/console doctrine:schema:update
+    ```
+
+    [Optional] Install datafixtures to create admin ready user accounts :
+    ```bash
+        php bin/console doctrine:fixtures:load
+    ```
+
+    Install eventual database migrations :
     ```bash
         symfony console doctrine:migrations:migrate
     ```
 
-4. Load project fixtures
-
-    From inside the container:
-    ```bash
-        php bin/console doctrine:fixtures:load
-    ```
-    **OR** 
-    ```bash
-        symfony console doctrine:fixtures:load
-    ```
-
-3. Now you should be able to access the website from your browser on the following url:
+4. Now you should be able to access the website from your browser on 
 http://localhost/
 
 
@@ -49,7 +50,6 @@ http://localhost/
 - Manage dependencies via **Composer**
 - Use Symfony commands via `php bin/console` commands or with the **Symfony CLI** via `symfony console`
 - Execute **Symfony CLI** specific commands
-- Manage project versionning with **GIT** (coming soon)
 
 
 ## Upcoming features

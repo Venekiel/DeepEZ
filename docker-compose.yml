@@ -3,29 +3,29 @@ version: "3"
 services:
     nginx:
         container_name: deepez_nginx
-        build: 
+        build:
             context: .
-            dockerfile: Dockerfile-nginx
+            dockerfile: infra/images/nginx/Dockerfile
         volumes: 
-            - ./symfony/:/var/www/symfony/
+            - ./app/:/var/www/app/
         ports: 
             - 80:80
         networks:
-            - symfony
+            - DeepEZ
     
-    symfony:
-        container_name: deepez_symfony
+    php:
+        container_name: deepez_php
         build:
             context: .
-            dockerfile: Dockerfile-symfony
+            dockerfile: ./infra/images/php/Dockerfile
         depends_on:
             - mysql
         environment:
             APP_ENV: dev
         volumes:
-            - ./symfony/:/var/www/symfony/
+            - ./app/:/var/www/app/
         networks:
-            - symfony 
+            - DeepEZ 
 
 ###> symfony/mailer ###
     mailer:
@@ -34,7 +34,7 @@ services:
             - 1025:25
             - 1080:80
         networks:
-            - symfony
+            - DeepEZ
 ###< symfony/mailer ###
     
     mysql:
@@ -45,14 +45,14 @@ services:
         ports:
             - 3306:3306
         volumes:
-            - ./database:/var/lib/mysql
+            - ./infra/volumes/database:/var/lib/mysql
         environment:
             # MYSQL_USER: user
             # MYSQL_PASSWORD: password
             MYSQL_ROOT_PASSWORD: root
             MYSQL_DATABASE: deepez
         networks:
-            - symfony
+            - DeepEZ
 
 networks:
-    symfony:
+    DeepEZ:

@@ -7,7 +7,7 @@ services:
             context: .
             dockerfile: infra/images/nginx/Dockerfile
         volumes: 
-            - ./symfony/:/var/www/symfony/
+            - ./app/:/var/www/app/
         ports: 
             - 80:80
         networks:
@@ -23,7 +23,7 @@ services:
         environment:
             APP_ENV: dev
         volumes:
-            - ./symfony/:/var/www/symfony/
+            - ./app/:/var/www/app/
         networks:
             - DeepEZ 
 

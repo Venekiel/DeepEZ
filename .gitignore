@@ -2,4 +2,4 @@
 /.vscode/
 
 # Database files
-/database/
+/infra/volumes/

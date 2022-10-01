@@ -1,2 +1,0 @@
-FROM nginx:1.21.3
-COPY ./build/nginx/default.conf /etc/nginx/conf.d/

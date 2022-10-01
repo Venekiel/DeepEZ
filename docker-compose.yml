@@ -3,7 +3,7 @@ version: "3"
 services:
     nginx:
         container_name: deepez_nginx
-        build: #./infra/images/nginx
+        build:
             context: .
             dockerfile: infra/images/nginx/Dockerfile
         volumes: 
@@ -15,7 +15,7 @@ services:
     
     php:
         container_name: deepez_php
-        build: #./infra/images/php
+        build:
             context: .
             dockerfile: ./infra/images/php/Dockerfile
         depends_on:

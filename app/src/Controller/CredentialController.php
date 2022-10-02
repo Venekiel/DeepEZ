@@ -62,7 +62,7 @@ class CredentialController extends AbstractController
         return $this->renderform('credentials/create.html.twig', [
             'nav_elements' => NavElementsEnum::getConstants(),
             'active_nav_element' => NavElementsEnum::CREDENTIALS,
-            'form' => $form,    
+            'form' => $form,
         ]);
     }
 
@@ -77,7 +77,7 @@ class CredentialController extends AbstractController
             return $this->redirectToRoute('credentials');
         }
 
-        $form = $this->createForm(CredentialType::class, $credential);
+        $form = $this->createForm(CredentialType::class, $credential, ['readonly' => true]);
 
         return $this->renderForm('credentials/read.html.twig', [
             'nav_elements' => NavElementsEnum::getConstants(),
@@ -104,7 +104,7 @@ class CredentialController extends AbstractController
         return $this->renderform('credentials/edit.html.twig', [
             'nav_elements' => NavElementsEnum::getConstants(),
             'active_nav_element' => NavElementsEnum::CREDENTIALS,
-            'form' => $form,    
+            'form' => $form,
         ]);
     }
 

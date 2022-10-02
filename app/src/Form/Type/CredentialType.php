@@ -18,22 +18,37 @@ class CredentialType extends AbstractType
             ->add('name', TextType::class)
             ->add('username', TextType::class, [
                 'required' => false,
+                'attr' => [
+                    'readonly' => $options['readonly'],
+                ],
             ])
             ->add('password', PasswordType::class, [
                 'required' => false,
                 'always_empty' => false,
+                'attr' => [
+                    'readonly' => $options['readonly'],
+                    'autocomplete' => 'off',
+                    'value' => $options['data']->getPassword(),
+                ],
             ])
             ->add('link', TextType::class, [
                 'required' => false,
+                'attr' => [
+                    'readonly' => $options['readonly'],
+                ],
             ])
-            ->add('register', SubmitType::class, ['label' => 'Register credential'])
         ;
+
+        if($options['readonly'] === false) {
+            $builder->add('register', SubmitType::class, ['label' => 'Register credential']);
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => Credential::class,
+            'readonly' => false,
         ]);
     }
 }

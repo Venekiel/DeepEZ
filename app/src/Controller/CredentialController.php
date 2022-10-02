@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
 use App\Entity\Credential;
 use App\Enum\NavElementsEnum;
 use App\Form\Type\CredentialType;
@@ -71,10 +70,9 @@ class CredentialController extends AbstractController
      */
     public function read(Credential $credential): Response
     {
-        $user = $this->getUser();
-        if ($user instanceof User && $credential->getUser()->getId() !== $user->getId())
-        {
-            return $this->redirectToRoute('credentials');
+        // Access verification is handled by App/Security/CredentialVoter
+        if (!$this->isGranted('read', $credential)) {
+            return new Response(status: 404);
         }
 
         $form = $this->createForm(CredentialType::class, $credential, ['readonly' => true]);
@@ -92,6 +90,11 @@ class CredentialController extends AbstractController
      */
     public function edit(Request $request, Credential $credential): Response
     {
+        // Access verification is handled by `App/Security/CredentialVoter`
+        if (!$this->isGranted('edit', $credential)) {
+            return new Response(status: 404);
+        }
+
         $form = $this->createForm(CredentialType::class, $credential);
 
         $form->handleRequest($request);
@@ -113,6 +116,11 @@ class CredentialController extends AbstractController
      */
     public function delete(Credential $credential = null): Response
     {
+        // Access verification is handled by `App/Security/CredentialVoter`
+        if (!$this->isGranted('delete', $credential)) {
+            return new Response(status: 404);
+        }
+
         /**
          * Deletes Credential only if one is found in database
          */

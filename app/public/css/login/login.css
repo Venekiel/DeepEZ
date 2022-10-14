@@ -1,7 +1,0 @@
-form {
-    grid-template: repeat(3, 1fr) / max-content 1fr;
-}
-
-form button[type="submit"] {
-    grid-column: 1 / span 2;
-}

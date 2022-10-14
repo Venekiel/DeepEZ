@@ -27,6 +27,14 @@ services:
         networks:
             - DeepEZ 
 
+    nodejs:
+        build:
+            context: .
+            dockerfile: ./infra/images/nodejs/Dockerfile
+        volumes:
+          - ./app/:/var/www/app/
+        command: "bash -ci 'yarn install && yarn watch'"
+
 ###> symfony/mailer ###
     mailer:
         image: tophfr/mailcatcher

@@ -45,7 +45,6 @@ A life assistant app to help people with their everyday tasks
 4. Now you should be able to access the website from your browser on 
 http://localhost/
 
-
 ## What you can do from inside the symfony container ?
 - Manage dependencies via **Composer**
 - Use Symfony commands via `php bin/console` commands or with the **Symfony CLI** via `symfony console`

@@ -27,11 +27,16 @@ class CredentialController extends AbstractController
     }
 
     /**
-     * @Route("", name="credentials")
+     * @Route("/page-{page}", name="credentials", defaults={"page" = 1}, requirements={"page"="\d+"}, methods={"GET"})
      */
-    public function list(): Response
+    public function list(int $page = 1): Response
     {
-        $credentials = $this->repository->findBy(['user' => $this->getUser()]);
+        $credentials = $this->repository->findPaginatedBy(['user' => $this->getUser()], $page);
+
+        // Redirect to first page if asked page is empty
+        if (count($credentials->getIterator()) <= 0) {
+            return $this->redirectToRoute('credentials', ['page' => 1]);
+        }
 
         return $this->render('credentials/list.html.twig', [
             'nav_elements' => NavElementsEnum::getConstants(),

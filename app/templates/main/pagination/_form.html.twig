@@ -1,0 +1,11 @@
+{# 
+    Required parameters:
+        - form : the FormView to display
+
+    Optional parameters:
+        - ...
+#}
+
+{{ form_start(form) }}
+    {{ include('main/form/_widget.html.twig', { 'formField': form.page }) }}
+{{ form_end(form) }}

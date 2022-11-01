@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Credential;
 use App\Enum\NavElementsEnum;
+use App\Form\PageSelectionFormType;
 use App\Form\Type\CredentialType;
 use App\Repository\CredentialRepository;
+use App\Services\PaginatorService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,6 +21,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  */
 class CredentialController extends AbstractController
 {
+    public const PAGINATION_FIRST_PAGE = 1;
+    public const PAGINATION_MAX_RESULTS = 50;
+
     private CredentialRepository $repository;
 
     public function __construct(EntityManagerInterface $entityManager, CredentialRepository $repository) {
@@ -27,21 +32,34 @@ class CredentialController extends AbstractController
     }
 
     /**
-     * @Route("/page-{page}", name="credentials", defaults={"page" = 1}, requirements={"page"="\d+"}, methods={"GET"})
+     * @Route("/page-{page}", name="credentials", defaults={"page" = self::PAGINATION_FIRST_PAGE}, requirements={"page"="\d+"}, methods={"GET", "POST"})
      */
-    public function list(int $page = 1): Response
+    public function list(Request $request, PaginatorService $paginatorService, int $page = self::PAGINATION_FIRST_PAGE): Response
     {
-        $credentials = $this->repository->findPaginatedBy(['user' => $this->getUser()], $page);
+        $credentials = $this->repository->findPaginatedBy(['user' => $this->getUser()], $page, static::PAGINATION_MAX_RESULTS);
+        $formOptions['pageCount'] = $paginatorService->getPageCount($credentials);
 
-        // Redirect to first page if asked page is empty
-        if (count($credentials->getIterator()) <= 0) {
-            return $this->redirectToRoute('credentials', ['page' => 1]);
+        $pageSelectionForm = $this->createForm(PageSelectionFormType::class, [
+            'page' => $page,
+        ], $formOptions);
+
+        $pageSelectionForm->handleRequest($request);
+        // Handle form submission
+        // Or redirect to first page if asked page is empty
+        if (($pageSelectionForm->isSubmitted() && $pageSelectionForm->isValid()) || count($credentials->getIterator()) <= 0) {
+            $formData = $pageSelectionForm->getData();
+            $page = $formData['page'] !== null ? $formData['page'] : static::PAGINATION_FIRST_PAGE;
+
+            $this->redirectToRoute('credentials', [
+                'page' => $page,
+            ]);
         }
 
-        return $this->render('credentials/list.html.twig', [
+        return $this->renderForm('credentials/list.html.twig', [
             'nav_elements' => NavElementsEnum::getConstants(),
             'active_nav_element' => NavElementsEnum::CREDENTIALS,
             'credentials' => $credentials,
+            'pageSelectionForm' => $pageSelectionForm,
         ]);
     }
     

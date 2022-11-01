@@ -1,11 +1,19 @@
 {# 
     Required parameters:
         - formField : the Form field to display
+    Optional parameters:
+        - enableCopy : specifies wether or not to enable the "copy to clipboard" button
 #}
+{% if (not enableCopy is defined or not enableCopy is bool) %}
+    {% set enableCopy = false %}
+{% endif %}
+
 <div data-controller="actions">
     {{ form_label(formField) }}
     {{ form_widget(formField, {'attr': {'data-actions-target': 'source'}}) }}
-    <div data-action="click->actions#copy" class="actions"><i class="fas fa-copy"></i></div>
+    {% if enableCopy %}
+        <div data-action="click->actions#copy" class="actions"><i class="fas fa-copy"></i></div>
+    {% endif %}    
 </div>
 
 {#<tr data-controller="actions">

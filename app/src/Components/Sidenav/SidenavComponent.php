@@ -41,11 +41,11 @@ class SidenavComponent
         $routeNames = NavElementsEnum::getElementsAttribute('routeName');
 
         foreach ($routeNames as $name => $routeName) {
-            if ($routeName === null || $requestUri !== $this->urlGenerator->generate($routeName)) {
+            if ($routeName === null || !preg_match('#^'. $this->urlGenerator->generate($routeName) .'#', $requestUri)) {
                 continue;
             }
 
-            return $this->navElements[$name];
+            return $this->activeElement = $this->navElements[$name];
         }
     }
 

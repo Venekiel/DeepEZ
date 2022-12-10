@@ -13,9 +13,6 @@
 {% endblock %}
 
 {% block body %}
-    {#
-    {{ include('main/_sidenav.html.twig', { 'active_element': active_nav_element, 'nav_elements': nav_elements }) }}
-    #}
     {{ component('sidenav/sidenav') }}
 
     <div class="content">

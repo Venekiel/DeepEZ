@@ -56,8 +56,6 @@ class CredentialController extends AbstractController
         }
 
         return $this->renderForm('credentials/list.html.twig', [
-            'nav_elements' => NavElementsEnum::getConstants(),
-            'active_nav_element' => NavElementsEnum::CREDENTIALS,
             'credentials' => $credentials,
             'pageSelectionForm' => $pageSelectionForm,
         ]);
@@ -82,8 +80,6 @@ class CredentialController extends AbstractController
         }
 
         return $this->renderform('credentials/create.html.twig', [
-            'nav_elements' => NavElementsEnum::getConstants(),
-            'active_nav_element' => NavElementsEnum::CREDENTIALS,
             'form' => $form,
         ]);
     }
@@ -101,8 +97,6 @@ class CredentialController extends AbstractController
         $form = $this->createForm(CredentialType::class, $credential, ['readonly' => true]);
 
         return $this->renderForm('credentials/read.html.twig', [
-            'nav_elements' => NavElementsEnum::getConstants(),
-            'active_nav_element' => NavElementsEnum::CREDENTIALS,
             'form' => $form,
             'id' => $credential->getId(),
         ]);
@@ -128,8 +122,6 @@ class CredentialController extends AbstractController
         }
 
         return $this->renderform('credentials/edit.html.twig', [
-            'nav_elements' => NavElementsEnum::getConstants(),
-            'active_nav_element' => NavElementsEnum::CREDENTIALS,
             'form' => $form,
         ]);
     }

@@ -14,9 +14,6 @@ class DashboardController extends AbstractController
      */
     public function dashboard(): Response
     {
-        return $this->render("dashboard/view.html.twig", [
-            'nav_elements' => NavElementsEnum::getConstants(),
-            'active_nav_element' => NavElementsEnum::DASHBOARD,
-        ]);
+        return $this->render("dashboard/view.html.twig", []);
     }
 }

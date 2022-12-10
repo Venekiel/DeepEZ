@@ -57,7 +57,7 @@ class CredentialController extends AbstractController
             $pageCookie = new Cookie(static::CREDENTIALS_PAGE_COOKIE, $page);
             $response->headers->setCookie($pageCookie);
 
-            $this->redirectToRoute('credentials');
+            $credentials = $this->repository->findPaginatedBy(['user' => $this->getUser()], $page, static::PAGINATION_MAX_RESULTS);
         }
 
         return $this->renderForm('credentials/list.html.twig', [

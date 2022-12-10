@@ -1,8 +1,3 @@
-{# 
-    Required parameters :
-        - active_element : defines the nav element that will be in active state
-#}
-
 <div class="sidenav">
     <div class="logo">
         <p>My app logo here</p>
@@ -11,11 +6,9 @@
     {% set sidenav_element_template = 'main/sidenav/_element.html.twig' %}
     
     {% for element in this.navElements %}
-        {{ include(sidenav_element_template, { 
-            'name': element.title,
-            'url': element.uri,
-            'active_element': this.activeElement,
-            'logo': element.logo,
+        {{ component('sidenav/element', { 
+                navElement: element,
+                activeElement: this.activeElement,
             })
         }}
     {% endfor %}

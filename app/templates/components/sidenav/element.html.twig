@@ -1,0 +1,6 @@
+<a href="{{ this.navElement.uri }}"
+    {% if this.activeElement.title is same as this.navElement.title %}
+        class="active"
+    {% endif %}>
+    {{ this.navElement.title }} {{ this.navElement.logo|raw }}
+</a>

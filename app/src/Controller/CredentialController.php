@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Credential;
-use App\Enum\NavElementsEnum;
 use App\Form\PageSelectionFormType;
 use App\Form\Type\CredentialType;
 use App\Repository\CredentialRepository;

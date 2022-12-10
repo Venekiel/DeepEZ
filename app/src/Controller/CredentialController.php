@@ -14,6 +14,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Cookie;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 /**
  * @Route("/credentials")
@@ -22,6 +24,7 @@ class CredentialController extends AbstractController
 {
     public const PAGINATION_FIRST_PAGE = 1;
     public const PAGINATION_MAX_RESULTS = 50;
+    private const CREDENTIALS_PAGE_COOKIE = 'credentials_page';
 
     private CredentialRepository $repository;
 
@@ -31,10 +34,13 @@ class CredentialController extends AbstractController
     }
 
     /**
-     * @Route("/page-{page}", name="credentials", defaults={"page" = self::PAGINATION_FIRST_PAGE}, requirements={"page"="\d+"}, methods={"GET", "POST"})
+     * @Route("/", name="credentials", methods={"GET", "POST"})
      */
-    public function list(Request $request, PaginatorService $paginatorService, int $page = self::PAGINATION_FIRST_PAGE): Response
+    public function list(Request $request, PaginatorService $paginatorService): Response
     {
+        $response = new Response();
+        $page = $request->cookies->get(static::CREDENTIALS_PAGE_COOKIE) ?? static::PAGINATION_FIRST_PAGE;
+
         $credentials = $this->repository->findPaginatedBy(['user' => $this->getUser()], $page, static::PAGINATION_MAX_RESULTS);
         $formOptions['pageCount'] = $paginatorService->getPageCount($credentials);
 
@@ -49,15 +55,16 @@ class CredentialController extends AbstractController
             $formData = $pageSelectionForm->getData();
             $page = $formData['page'] !== null ? $formData['page'] : static::PAGINATION_FIRST_PAGE;
 
-            $this->redirectToRoute('credentials', [
-                'page' => $page,
-            ]);
+            $pageCookie = new Cookie(static::CREDENTIALS_PAGE_COOKIE, $page);
+            $response->headers->setCookie($pageCookie);
+
+            $this->redirectToRoute('credentials');
         }
 
         return $this->renderForm('credentials/list.html.twig', [
             'credentials' => $credentials,
             'pageSelectionForm' => $pageSelectionForm,
-        ]);
+        ], $response);
     }
     
     /**

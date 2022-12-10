@@ -3,19 +3,18 @@
 namespace App\Controller;
 
 use App\Entity\Credential;
-use App\Form\PageSelectionFormType;
+use App\Form\PaginationFormType;
 use App\Form\Type\CredentialType;
-use App\Repository\CredentialRepository;
 use App\Services\PaginatorService;
+use App\Repository\CredentialRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Cookie;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 /**
  * @Route("/credentials")
@@ -44,15 +43,15 @@ class CredentialController extends AbstractController
         $credentials = $this->repository->findPaginatedBy(['user' => $this->getUser()], $page, static::PAGINATION_MAX_RESULTS);
         $formOptions['pageCount'] = $paginatorService->getPageCount($credentials);
 
-        $pageSelectionForm = $this->createForm(PageSelectionFormType::class, [
+        $paginationForm = $this->createForm(PaginationFormType::class, [
             'page' => $page,
         ], $formOptions);
 
-        $pageSelectionForm->handleRequest($request);
+        $paginationForm->handleRequest($request);
         // Handle form submission
         // Or redirect to first page if asked page is empty
-        if (($pageSelectionForm->isSubmitted() && $pageSelectionForm->isValid()) || count($credentials->getIterator()) <= 0) {
-            $formData = $pageSelectionForm->getData();
+        if (($paginationForm->isSubmitted() && $paginationForm->isValid()) || count($credentials->getIterator()) <= 0) {
+            $formData = $paginationForm->getData();
             $page = $formData['page'] !== null ? $formData['page'] : static::PAGINATION_FIRST_PAGE;
 
             $pageCookie = new Cookie(static::CREDENTIALS_PAGE_COOKIE, $page);
@@ -63,7 +62,7 @@ class CredentialController extends AbstractController
 
         return $this->renderForm('credentials/list.html.twig', [
             'credentials' => $credentials,
-            'pageSelectionForm' => $pageSelectionForm,
+            'paginationForm' => $paginationForm,
         ], $response);
     }
     

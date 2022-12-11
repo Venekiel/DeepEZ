@@ -10,6 +10,7 @@ services:
             - ./app/:/var/www/app/
         ports: 
             - 80:80
+        restart: always
         networks:
             - DeepEZ
     
@@ -24,23 +25,28 @@ services:
             APP_ENV: dev
         volumes:
             - ./app/:/var/www/app/
+        restart: always
         networks:
             - DeepEZ 
 
     nodejs:
+        container_name: deepez_nodejs
         build:
             context: .
             dockerfile: ./infra/images/nodejs/Dockerfile
         volumes:
           - ./app/:/var/www/app/
         command: "bash -ci 'yarn install && yarn watch'"
+        restart: always
 
 ###> symfony/mailer ###
     mailer:
+        container_name: deepez_mailer
         image: tophfr/mailcatcher
         ports: 
             - 1025:25
             - 1080:80
+        restart: always
         networks:
             - DeepEZ
 ###< symfony/mailer ###
@@ -49,7 +55,6 @@ services:
         container_name: deepez_mysql
         image: mysql:8.0.26
         command: ['--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci', '--default-authentication-plugin=mysql_native_password']
-        restart: always
         ports:
             - 3306:3306
         volumes:
@@ -59,6 +64,7 @@ services:
             # MYSQL_PASSWORD: password
             MYSQL_ROOT_PASSWORD: root
             MYSQL_DATABASE: deepez
+        restart: always
         networks:
             - DeepEZ
 
